@@ -3,7 +3,10 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'mvn clean install'
+        def mvnv = 'mvn-3.5.0'
+        withEnv( ["PATH+MAVEN=${tool mvnv}/bin"] ) {
+          sh 'mvn --batch-mode -U clean install'
+        }
       }
     }
   }
